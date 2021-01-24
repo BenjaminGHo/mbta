@@ -1,19 +1,12 @@
-<div>
-This is stop {{stopID}}'s lat and long:
-</div>
-<div>
-Lat: {{latitude}}
-Long: {{longitude}}
-</div>
+<h4>Stop:</h4>{{this.busStop.name}}
 <br/><br/>
-<div>
-Arrival Time: {{arrivalTime}}
-<br/>
-Minutes Away: {{minutesAway}}
-</div>
-<br/>
+<h4>Arrival Time:</h4> {{arrivalTime}}
+<br/><br/>
+<h4>Minutes Away:</h4> {{minutesAway}}
+<br/><br/>
 Bus Routes
 <select class="form-select" (change)='onOptionsSelected($event)'>
+    <option>Please select route</option>
     <option *ngFor="let item of busRoutes">
         {{item}}
     </option>
