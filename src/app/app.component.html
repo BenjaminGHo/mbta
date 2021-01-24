@@ -1,20 +1,27 @@
+<div class='dropdown-container'>
+    <h4>Bus Routes</h4>
+    <select class="form-select" (change)='onOptionsSelected($event)'>
+        <option>Please select route</option>
+        <option *ngFor="let item of busRoutes" [value]="item.id">
+            {{item.id}} - {{item.name}}
+        </option>
+    </select>
+
+    <h4>Bus Stops</h4>
+    <select class="form-select" (change)='onStopOptionsSelected($event)'>
+        <option *ngFor="let item of busStops" [value]="item.id">
+            {{item.name}}
+        </option>
+    </select>
+</div>
+
+<hr/>
+
 <h4>Stop:</h4>{{this.busStop.name}}
 <br/><br/>
 <h4>Arrival Time:</h4> {{arrivalTime}}
 <br/><br/>
 <h4>Minutes Away:</h4> {{minutesAway}}
 <br/><br/>
-Bus Routes
-<select class="form-select" (change)='onOptionsSelected($event)'>
-    <option>Please select route</option>
-    <option *ngFor="let item of busRoutes">
-        {{item}}
-    </option>
-</select>
 
-Bus Stops
-<select class="form-select"   (change)='onStopOptionsSelected($event)'>
-    <option *ngFor="let item of busStops" [value]="item.id">
-        {{item.name}}
-    </option>
-</select>
+<div #map style="width:100%;height:400px"></div>

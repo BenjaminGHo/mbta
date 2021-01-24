@@ -1,7 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-
-
 body {
-
     padding: 30px;
+}
+
+.dropdown-container {
+    background-color: #EEE;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 10px;
 }
