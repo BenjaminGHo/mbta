@@ -9,6 +9,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class MbtaService {
 
   private stopUrl = 'https://api-v3.mbta.com/stops/2104';  // URL to web api
+  private stopPrediction = 'https://api-v3.mbta.com/predictions?filter[stop]=2104';
 
   constructor(private http: HttpClient) { }
 
@@ -16,6 +17,10 @@ export class MbtaService {
   getStop2104(): Observable<any> {
     return this.http.get<any>(this.stopUrl).pipe(
       catchError(this.handleError<any>('getStop', [])));
+  }
+
+  getStop2104Predicition(): Observable<any> {
+    return this.http.get<any>(this.stopPrediction);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
