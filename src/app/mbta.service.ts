@@ -8,21 +8,21 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class MbtaService {
 
-  private stopUrl = 'https://api-v3.mbta.com/stops/2104';  // URL to web api
-  private stopPredictionUrl = 'https://api-v3.mbta.com/predictions?filter[stop]=2104';
+  private stopUrl = 'https://api-v3.mbta.com/stops/';  // URL to web api
+  private stopPredictionUrl = 'https://api-v3.mbta.com/predictions?filter[stop]=';
   private getBusRoutesUrl = 'https://api-v3.mbta.com/routes?filter[type]=3';
   private getBusStopsUrl= 'https://api-v3.mbta.com/stops?filter[route]='
 
   constructor(private http: HttpClient) { }
 
 
-  getStop2104(): Observable<any> {
-    return this.http.get<any>(this.stopUrl).pipe(
+  getStop2104(stop:number): Observable<any> {
+    return this.http.get<any>(this.stopUrl + stop).pipe(
       catchError(this.handleError<any>('getStop', [])));
   }
 
-  getStop2104Predicition(): Observable<any> {
-    return this.http.get<any>(this.stopPredictionUrl);
+  getStop2104Predicition(stop:number): Observable<any> {
+    return this.http.get<any>(this.stopPredictionUrl + stop);
   }
 
   getBusRoutes(): Observable<any> {
