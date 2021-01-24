@@ -13,6 +13,8 @@ export class AppComponent {
   public arrivalTime: any;
   public minutesAway: number;
   public interval: any;
+  public busRoutes: string[] = [];
+  public busStops: string[] = [];
 
   constructor(private mbtaService: MbtaService) {}
 
@@ -31,13 +33,26 @@ export class AppComponent {
       console.log(res.data[0].attributes.arrival_time);
       this.arrivalTime = new Date(res.data[0].attributes.arrival_time);
 
-      if (this.arrivalTime < 0) {
+      if (((this.arrivalTime.getTime() - Date.now())/1000/60) < 0) {
         this.arrivalTime = new Date(res.data[1].attributes.arrival_time);
       }
-
-
+      
       this.minutesAway = ((this.arrivalTime.getTime() - Date.now())/1000/60);
     });
+
+    this.mbtaService.getBusRoutes().subscribe(res => {
+
+        console.log(res.data);
+        for (var i = 0; i < res.data.length; i++)
+        {
+          //console.log(res.data[i].attributes.short_name);
+          this.busRoutes.push(res.data[i].attributes.short_name);
+        }
+
+        console.log( this.busRoutes);
+    });
+
+
 
     this.interval = setInterval(() => {
 
@@ -54,7 +69,7 @@ export class AppComponent {
       console.log(res.data[0].attributes.arrival_time);
       this.arrivalTime = new Date(res.data[0].attributes.arrival_time);
 
-      if (this.arrivalTime < 0) {
+      if (((this.arrivalTime.getTime() - Date.now())/1000/60) < 0) {
         this.arrivalTime = new Date(res.data[1].attributes.arrival_time);
       }
 
@@ -63,10 +78,51 @@ export class AppComponent {
     });
 
 
-  }, 10000);
+  }, 30000);
 
 
 
   }
+
+
+  public onOptionsSelected(event) {
+    this.busStops = [];
+    const value = event.target.value;
+    //console.log(value);
+
+    this.mbtaService.getBusStops(value).subscribe(res => {
+
+      console.log(res.data);
+      for (var i = 0; i < res.data.length; i++)
+      {
+        //console.log(res.data[i].attributes.name);
+        this.busStops.push(res.data[i].attributes.name);
+      }
+
+      //console.log( this.busRoutes);
+  });
+
+
+
+
+ }
+
+ public onStopOptionsSelected(event) {
+  this.busStops = [];
+  const value = event.target.value;
+  //console.log(value);
+
+  this.mbtaService.getBusStops(value).subscribe(res => {
+
+    console.log(res.data);
+    for (var i = 0; i < res.data.length; i++)
+    {
+      //console.log(res.data[i].attributes.name);
+      this.busStops.push(res.data[i].attributes.name);
+    }
+
+    //console.log( this.busRoutes);
+});
+ }
     
 }

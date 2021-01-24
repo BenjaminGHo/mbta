@@ -11,3 +11,17 @@ Arrival Time: {{arrivalTime}}
 <br/>
 Minutes Away: {{minutesAway}}
 </div>
+<br/>
+Bus Routes
+<select class="form-select" (change)='onOptionsSelected($event)'>
+    <option *ngFor="let item of busRoutes">
+        {{item}}
+    </option>
+</select>
+
+Bus Stops
+<select class="form-select"  (change)='onStopOptionsSelected($event)'>
+    <option *ngFor="let item of busStops">
+        {{item}}
+    </option>
+</select>
